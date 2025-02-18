@@ -1,10 +1,10 @@
 using System;
-using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
-namespace Cosmos
+namespace Cosmos.system
 {
     public interface IReadOnlyHeap<T> : IReadOnlyCollection<KeyValuePair<T, IComparable>>
     {
@@ -286,11 +286,11 @@ namespace Cosmos
                 var left = (index << 1) + 1;
                 if (left >= length)
                     return;
-                Assert.IsTrue(value.CompareTo(values[left]) <= 0);
+                Debug.Assert(value.CompareTo(values[left]) <= 0);
                 var right = left + 1;
                 if (right >= length)
                     return;
-                Assert.IsTrue(value.CompareTo(values[right]) <= 0);
+                Debug.Assert(value.CompareTo(values[right]) <= 0);
             }
             return;
         }
@@ -300,11 +300,11 @@ namespace Cosmos
             var left = (index << 1) + 1;
             if (left >= length)
                 return;
-            Assert.IsTrue(value.CompareTo(values[left]) <= 0);
+            Debug.Assert(value.CompareTo(values[left]) <= 0);
             var right = left + 1;
             if (right >= length)
                 return;
-            Assert.IsTrue(value.CompareTo(values[right]) <= 0);
+            Debug.Assert(value.CompareTo(values[right]) <= 0);
         }
         public static void HeapAdd_min(T key, IComparable value, ref T[] keys, ref IComparable[] values, ref int length)
         {

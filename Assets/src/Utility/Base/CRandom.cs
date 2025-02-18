@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Cosmos.system;
 
-namespace Cosmos
+namespace Cosmos.unity
 {
     public static class CRandom
     {

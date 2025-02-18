@@ -1,6 +1,6 @@
 using System;
 
-namespace Cosmos
+namespace Cosmos.system
 {
     /// <summary>
     /// 通用继承形单例；

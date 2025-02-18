@@ -1,12 +1,9 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine.Events;
-using UnityEngine.Networking;
 using UnityEngine;
+using Cosmos.system;
 
-namespace Cosmos
+namespace Cosmos.unity
 {
     public static class UnityMonoExtension
     {

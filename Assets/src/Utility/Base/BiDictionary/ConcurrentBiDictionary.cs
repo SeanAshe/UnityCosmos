@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Runtime.Serialization;
-namespace Cosmos
+
+namespace Cosmos.system
 {
     [Serializable]
     public class ConcurrentBiDictionary<TFirst, TSecond> : IDictionary<TFirst, TSecond>, IReadOnlyDictionary<TFirst, TSecond>, IDictionary

@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using System;
-using UnityEngine;
 
-namespace Cosmos
+namespace Cosmos.system
 {
     public enum SortMethod
     {

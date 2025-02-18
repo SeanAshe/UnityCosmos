@@ -1,6 +1,6 @@
 using System;
 
-namespace Cosmos
+namespace Cosmos.system
 {
     /// <summary>
     /// 多线程单例基类，内部包含线程锁;

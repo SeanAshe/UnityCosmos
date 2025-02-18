@@ -1,9 +1,8 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System;
 
-namespace Cosmos
+namespace Cosmos.system
 {
     public static class SystemExtension
     {
@@ -36,7 +35,7 @@ namespace Cosmos
         {
             return string.Format(format, args);
         }
-        static public int HexToDecimal(in char ch)
+        static public int HexToDecimal(this in char ch)
         {
             switch (ch)
             {

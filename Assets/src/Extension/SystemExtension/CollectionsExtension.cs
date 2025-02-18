@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System;
 
-namespace Cosmos
+namespace Cosmos.system
 {
     public static class CollectionsExtension
     {

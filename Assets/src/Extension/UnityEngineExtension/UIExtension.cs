@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Assertions;
+using Cosmos.system;
 
-namespace Cosmos
+namespace Cosmos.unity
 {
     public static class UIExtension
     {
@@ -15,10 +14,9 @@ namespace Cosmos
         {
             Assert.IsNotNull(text, "A NULL text can't be convert to color");
             Assert.IsTrue(text.Length == 6, "The text can't be convert to color: " + text);
-
-            int r = (SystemExtension.HexToDecimal(text[0]) << 4) | SystemExtension.HexToDecimal(text[1]);
-            int g = (SystemExtension.HexToDecimal(text[2]) << 4) | SystemExtension.HexToDecimal(text[3]);
-            int b = (SystemExtension.HexToDecimal(text[4]) << 4) | SystemExtension.HexToDecimal(text[5]);
+            int r = (text[0].HexToDecimal() << 4) | text[1].HexToDecimal();
+            int g = (text[2].HexToDecimal() << 4) | text[3].HexToDecimal();
+            int b = (text[4].HexToDecimal() << 4) | text[5].HexToDecimal();
 
             return new Color((float)r / 255f, (float)g / 255f, (float)b / 255f);
         }
