@@ -75,7 +75,7 @@ namespace Cosmos.unity
             var value = float.MinValue;
             var resultIndex = 0;
             var count = @this.Count;
-            for(var index = 0; index < count; index ++)
+            for (var index = 0; index < count; index++)
             {
                 var item = @this[index];
                 float weight;
@@ -201,7 +201,7 @@ namespace Cosmos.unity
             foreach (var item in heap)
                 yield return item.Key;
         }
-                /// <summary>
+        /// <summary>
         /// 高效的随机挑选算法,不重复随机挑选<paramref name="pickCount"/>个
         /// </summary>
         /// <remarks>
@@ -248,6 +248,80 @@ namespace Cosmos.unity
                 if (value.Equals(element))
                     return index;
             return -1;
+        }
+    }
+
+    public class UniqueRandomPicker<T>
+    {
+        private readonly IList<T> _sourceList;
+        private readonly int[] _shuffledIndices; // 存储预先洗牌好的索引
+        private readonly int _listCount;
+
+        public UniqueRandomPicker(IList<T> sourceList, int seed)
+        {
+            if (sourceList == null) return;
+            _sourceList = sourceList;
+            _listCount = sourceList.Count;
+
+            if (_listCount > 0)
+            {
+                // 在构造函数中，根据seed确定性地生成洗牌后的索引序列
+                _shuffledIndices = GenerateDeterministicShuffle(_listCount, seed);
+            }
+            else
+            {
+                _shuffledIndices = new int[0];
+            }
+        }
+        /// <summary>
+        /// 生成一个确定性的Fisher-Yates洗牌序列的索引数组。
+        /// 保证在 [0, count-1] 范围内没有重复，且每次给定相同seed，结果都一致。
+        /// </summary>
+        private int[] GenerateDeterministicShuffle(int count, int seed)
+        {
+            int[] indices = new int[count];
+            for (int i = 0; i < count; i++)
+            {
+                indices[i] = i;
+            }
+
+            // 使用一个确定性的伪随机数生成器。
+            // 为了确保不同 seed 产生完全不同的洗牌，这里创建一个新的 Random 实例。
+            // 注意：System.Random 的行为在 .NET Core 3.0+ (或 .NET 5+) 有所改进，
+            // 保证了跨平台和确定性。但在老版本 .NET Framework 上，其行为可能受OS影响，
+            // 尽管对于给定 seed，序列是确定性的。
+            var rng = new System.Random(seed);
+
+            for (int i = count - 1; i > 0; i--)
+            {
+                int swapIndex = rng.Next(i + 1); // 随机选择一个 [0, i] 范围内的索引
+                (indices[i], indices[swapIndex]) = (indices[swapIndex], indices[i]); // 交换元素
+            }
+            return indices;
+        }
+        /// <summary>
+        /// 根据抽取索引，从列表中抽取一个元素，保证绝对不重复（在 list.Count 范围内）。
+        /// 抽取次数超过列表长度时，会循环抽取。
+        /// </summary>
+        public T Pick(int drawIndex)
+        {
+            if (_listCount == 0)
+            {
+                return default(T);
+            }
+
+            if (drawIndex < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(drawIndex), "Draw index must be non-negative.");
+            }
+
+            // 处理抽取次数超过列表长度的情况：通过取模实现循环
+            int effectiveIndex = drawIndex % _listCount;
+
+            // 直接从预先洗牌好的索引数组中获取元素
+            int actualIndexInSourceList = _shuffledIndices[effectiveIndex];
+
+            return _sourceList[actualIndexInSourceList];
         }
     }
 }

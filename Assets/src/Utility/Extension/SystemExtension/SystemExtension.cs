@@ -99,5 +99,13 @@ namespace Cosmos.system
                 Debug.LogException(e);
             }
         }
+        public static bool IsOneof<T>(this T @this, params T[] args)
+        {
+            foreach (var arg in args)
+            {
+                if (arg.Equals(@this)) return true;
+            }
+            return false;
+        }
     }
 }
