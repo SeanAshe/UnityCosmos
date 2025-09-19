@@ -1,5 +1,6 @@
+using Cosmos.unity;
 
-namespace Cosmos.unity
+namespace Cosmos.OperatorSystem
 {
     public interface ISystem
     {
@@ -10,13 +11,13 @@ namespace Cosmos.unity
         // Start is called before the first frame update
         void Start()
         {
-            
+
         }
 
         // Update is called once per frame
         void Update()
         {
-            
+
         }
     }
 }

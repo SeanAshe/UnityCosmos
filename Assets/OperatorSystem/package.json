@@ -1,0 +1,9 @@
+{
+  "name": "com.sean.unity-cosmos-operatorsystem",
+  "displayName": "Unity Cosmos",
+  "description": "Unity Cosmos",
+  "dependencies": {
+    "com.sean.unity-cosmos": "https://github.com/SeanAshe/UnityCosmos.git?path=Assets/Cosmos"
+  },
+  "version": "0.0.1"
+}
