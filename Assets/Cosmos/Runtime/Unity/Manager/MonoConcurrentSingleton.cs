@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Cosmos.unity
 {
-    public class CMonoConcurrentSingleton<TInstance> : MonoBehaviour where TInstance : CMonoConcurrentSingleton<TInstance>
+    public class MonoConcurrentSingleton<TInstance> : MonoBehaviour where TInstance : MonoConcurrentSingleton<TInstance>
     {
         private static TInstance s_Instance = null;
         private static readonly object s_syncObj = new();
@@ -23,7 +23,7 @@ namespace Cosmos.unity
                 {
                     // This is where the magic happens.
                     //  FindObjectOfType(...) returns the first AManager object in the scene.
-                    var tempInstance = FindObjectOfType(typeof(TInstance)) as TInstance;
+                    var tempInstance = FindFirstObjectByType(typeof(TInstance)) as TInstance;
 
                     if (tempInstance != null)
                     {

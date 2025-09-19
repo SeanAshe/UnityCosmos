@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System;
 
-namespace Cosmos.algorithm
+namespace Cosmos.math
 {
     /// <summary>
     /// 最长公共子序列和Diff方法

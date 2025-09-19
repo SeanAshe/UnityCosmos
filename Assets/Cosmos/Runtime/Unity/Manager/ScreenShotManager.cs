@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Cosmos.unity
 {
-    public class ScreenShotManager : CMonoConcurrentSingleton<ScreenShotManager>
+    public class ScreenShotManager : MonoConcurrentSingleton<ScreenShotManager>
     {
         private Texture2D texture;
         private Camera used_camera;

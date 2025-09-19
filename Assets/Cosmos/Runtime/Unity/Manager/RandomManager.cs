@@ -6,7 +6,7 @@ using Cosmos.system;
 
 namespace Cosmos.unity
 {
-    public static class CRandom
+    public static class RandomManager
     {
         public static bool TryRandomPick<T>(this IReadOnlyList<T> @this, out T value, in System.Random random = null)
         {

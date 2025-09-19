@@ -21,7 +21,7 @@ namespace Cosmos.unity
         Minutes,
         Seconds,
     }
-    public static class CTime
+    public static class TimeManager
     {
         public static TimeSpanFormat TimeSpanFormat = Resources.Load<TimeSpanFormat>(@"Cosmos/TimeSpanFormat.asset");
         public static DateFormat DateFormat = Resources.Load<DateFormat>(@"Cosmos/DateFormat.asset");

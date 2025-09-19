@@ -21,7 +21,7 @@ namespace Cosmos.unity
             {
                 if (instance == null)
                 {
-                    instance = GameObject.FindObjectOfType(typeof(TDerived)) as TDerived;//先从环境中查找类型
+                    instance = FindFirstObjectByType(typeof(TDerived)) as TDerived;//先从环境中查找类型
                     if (instance == null)//假如还是空，则生成一个
                     {
                         instance = new GameObject(typeof(TDerived).ToString(), typeof(TDerived)).GetComponent<TDerived>();
