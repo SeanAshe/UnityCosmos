@@ -1,9 +1,14 @@
+using Cosmos.unity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Cosmos.unity;
-
+using System.Linq;
+using System;
+using System.Globalization;
+using System.Threading;
+using Cosmos.system;
+using TinyPinyin;
 public class Demo : MonoBehaviour
 {
     private Button _button;
@@ -15,8 +20,11 @@ public class Demo : MonoBehaviour
     }
     private void OnClick()
     {
-        TestRandom();
-        TestRandom();
+        // string[] arr = { "赵", "钱", "孙", "李", "周", "吴", "铮", "王" };
+        // Array.Sort(arr, CostumComparer.ChineseComparer);
+        // Debug.Log(string.Join(", ", arr));
+        // TestRandom();
+        // TestRandom();
     }
 
     private void TestRandom()
