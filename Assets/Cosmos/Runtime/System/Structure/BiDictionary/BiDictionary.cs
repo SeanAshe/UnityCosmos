@@ -88,6 +88,7 @@ namespace Cosmos.system
         }
 
         public bool ContainsKey(TFirst key) => _firstToSecond.ContainsKey(key);
+        public bool ContainsValue(TSecond value) => _secondToFirst.ContainsKey(value);
         bool ICollection<KeyValuePair<TFirst, TSecond>>.Contains(KeyValuePair<TFirst, TSecond> item) => _firstToSecond.Contains(item);
         public bool TryGetValue(TFirst key, out TSecond value) => _firstToSecond.TryGetValue(key, out value) && _secondToFirst.ContainsKey(value);
         public bool Remove(TFirst key)
