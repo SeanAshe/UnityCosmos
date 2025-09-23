@@ -9,6 +9,7 @@ using System.Globalization;
 using System.Threading;
 using Cosmos.system;
 using TinyPinyin;
+using Cosmos.math;
 public class Demo : MonoBehaviour
 {
     private Button _button;
@@ -25,6 +26,11 @@ public class Demo : MonoBehaviour
         // Debug.Log(string.Join(", ", arr));
         // TestRandom();
         // TestRandom();
+        // var pinyin = "lv2";
+        // Debug.Log(PinyinConverter.ToFormatPinyin(pinyin));
+        var a = "abcdefg";
+        var b = "abcdefghijk";
+        Debug.Log(string.Join('\n', Custom_LCS.Diff(a, b)));
     }
 
     private void TestRandom()
