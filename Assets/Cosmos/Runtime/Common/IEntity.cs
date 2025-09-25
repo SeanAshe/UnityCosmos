@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Cosmos.unity
+namespace Cosmos.Unity
 {
     public interface IEntity
     {

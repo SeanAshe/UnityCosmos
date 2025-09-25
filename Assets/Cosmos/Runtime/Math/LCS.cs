@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System;
 
-namespace Cosmos.math
+namespace Cosmos.Math
 {
     /// <summary>
     /// 最长公共子序列和Diff方法
@@ -69,7 +69,7 @@ namespace Cosmos.math
                     if (str1[i - 1] == str2[j - 1])
                         _matrix[i, j] = _matrix[i - 1, j - 1];
                     else
-                        _matrix[i, j] = Math.Min(_matrix[i - 1, j], _matrix[i, j - 1]) + 1;
+                        _matrix[i, j] = global::System.Math.Min(_matrix[i - 1, j], _matrix[i, j - 1]) + 1;
                 }
             }
             var _result = new List<string>();

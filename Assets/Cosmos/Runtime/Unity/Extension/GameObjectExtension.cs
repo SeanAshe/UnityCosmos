@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
-using Cosmos.system;
+using Cosmos.System;
 
-namespace Cosmos.unity
+namespace Cosmos.Unity
 {
     public static class GameObjectExtension
     {

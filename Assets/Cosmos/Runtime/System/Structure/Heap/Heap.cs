@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Cosmos.system
+namespace Cosmos.System
 {
     public interface IReadOnlyHeap<T> : IReadOnlyCollection<KeyValuePair<T, IComparable>>
     {

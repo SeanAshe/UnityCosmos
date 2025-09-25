@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Cosmos.system;
+using Cosmos.System;
 
-namespace Cosmos.unity
+namespace Cosmos.Unity
 {
     public static class RandomManager
     {
-        public static bool TryRandomPick<T>(this IReadOnlyList<T> @this, out T value, in System.Random random = null)
+        public static bool TryRandomPick<T>(this IReadOnlyList<T> @this, out T value, in global::System.Random random = null)
         {
             if (@this is null || @this.Count <= 0)
             {
@@ -22,7 +22,7 @@ namespace Cosmos.unity
         /// <summary>
         /// 随机挑选 随机种子
         /// </summary>
-        public static T RandomPick<T>(this IReadOnlyList<T> @this, System.Random random = null)
+        public static T RandomPick<T>(this IReadOnlyList<T> @this, global::System.Random random = null)
         {
             if (!@this.TryRandomPick(out var value, random))
             {
@@ -31,7 +31,7 @@ namespace Cosmos.unity
             }
             return value;
         }
-        public static bool TryRandomPop<T>(this IList<T> @this, out T value, bool keepOrder = false, in System.Random random = null)
+        public static bool TryRandomPop<T>(this IList<T> @this, out T value, bool keepOrder = false, in global::System.Random random = null)
         {
             if (@this is null || @this.Count <= 0)
             {
@@ -61,7 +61,7 @@ namespace Cosmos.unity
         /// <param name="value"></param>
         /// <param name="keepOrder">是否保持有序</param>
         /// <returns></returns>
-        public static T RandomPop<T>(this IList<T> @this, bool keepOrder = false, in System.Random random = null)
+        public static T RandomPop<T>(this IList<T> @this, bool keepOrder = false, in global::System.Random random = null)
         {
             if (!@this.TryRandomPop(out var value, keepOrder, random))
             {
@@ -70,7 +70,7 @@ namespace Cosmos.unity
             }
             return value;
         }
-        public static T RandomPop<T>(this IList<T> @this, Func<T, float> weightGetter, bool keepOrder = false, in System.Random random = null)
+        public static T RandomPop<T>(this IList<T> @this, Func<T, float> weightGetter, bool keepOrder = false, in global::System.Random random = null)
         {
             var value = float.MinValue;
             var resultIndex = 0;
@@ -123,7 +123,7 @@ namespace Cosmos.unity
         /// <param name="weightGetter">权重计算器</param>
         /// <param name="pickCount">挑选数量</param>
         /// <returns>被挑选物品 (可能不足<paramref name="pickCount"/>个)</returns>
-        public static IEnumerable<T> RandomPick<T>(this IEnumerable<T> @this, Func<T, float> weightGetter, int pickCount, System.Random random = null)
+        public static IEnumerable<T> RandomPick<T>(this IEnumerable<T> @this, Func<T, float> weightGetter, int pickCount, global::System.Random random = null)
         {
             if (@this is null)
                 yield break;
@@ -171,7 +171,7 @@ namespace Cosmos.unity
         /// <param name="this">物品序列</param>
         /// <param name="pickCount">挑选数量</param>
         /// <returns>被挑选物品 (可能不足<paramref name="pickCount"/>个)</returns>
-        public static IEnumerable<T> RandomPick<T>(this IEnumerable<T> @this, int pickCount, System.Random random)
+        public static IEnumerable<T> RandomPick<T>(this IEnumerable<T> @this, int pickCount, global::System.Random random)
         {
             if (random is null)
             {
@@ -290,7 +290,7 @@ namespace Cosmos.unity
             // 注意：System.Random 的行为在 .NET Core 3.0+ (或 .NET 5+) 有所改进，
             // 保证了跨平台和确定性。但在老版本 .NET Framework 上，其行为可能受OS影响，
             // 尽管对于给定 seed，序列是确定性的。
-            var rng = new System.Random(seed);
+            var rng = new global::System.Random(seed);
 
             for (int i = count - 1; i > 0; i--)
             {

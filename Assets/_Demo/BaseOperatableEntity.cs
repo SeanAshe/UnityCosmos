@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Cosmos.unity;
+using Cosmos.Unity;
 using UnityEngine;
+using Cosmos.OperatorSystem;
 
 [RequireComponent(typeof(OperatorMgr))]
 [RequireComponent(typeof(LineRenderer))]

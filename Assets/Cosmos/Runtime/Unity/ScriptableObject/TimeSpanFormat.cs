@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Cosmos.unity
+namespace Cosmos.Unity
 {
     [CreateAssetMenu(menuName = "StaticConfig/TimeSpanFormat")]
     public class TimeSpanFormat : ScriptableObject

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Cosmos.system
+namespace Cosmos.System
 {
     public static class PinyinConverter
     {

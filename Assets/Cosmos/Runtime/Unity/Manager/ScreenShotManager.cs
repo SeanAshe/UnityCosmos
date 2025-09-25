@@ -4,7 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Cosmos.unity
+namespace Cosmos.Unity
 {
     public class ScreenShotManager : MonoConcurrentSingleton<ScreenShotManager>
     {

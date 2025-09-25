@@ -1,4 +1,4 @@
-namespace Cosmos.system
+namespace Cosmos.System
 {
     public static class CostumComparer
     {

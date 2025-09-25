@@ -2,7 +2,7 @@ using TinyPinyin;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace Cosmos.system
+namespace Cosmos.System
 {
     public class ChineseComparer : IComparer<string>
     {

@@ -4,7 +4,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace Cosmos.unity
+namespace Cosmos.Unity
 {
     public enum eDateTimeFormatType
     {

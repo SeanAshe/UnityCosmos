@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Assertions;
-using Cosmos.system;
+using Cosmos.System;
 
-namespace Cosmos.unity
+namespace Cosmos.Unity
 {
     public static class UIExtension
     {

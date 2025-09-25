@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Cosmos.unity
+namespace Cosmos.Unity
 {
     /// <summary>
     /// 继承mono的单例基类

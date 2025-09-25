@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Cosmos.unity
+namespace Cosmos.Unity
 {
     public class MonoConcurrentSingleton<TInstance> : MonoBehaviour where TInstance : MonoConcurrentSingleton<TInstance>
     {

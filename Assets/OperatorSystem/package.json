@@ -1,7 +1,7 @@
 {
   "name": "com.sean.unity-cosmos-operatorsystem",
-  "displayName": "Unity Cosmos",
-  "description": "Unity Cosmos",
+  "displayName": "Unity Cosmos OperatorSystem",
+  "description": "Unity Cosmos OperatorSystem",
   "dependencies": {
     "com.sean.unity-cosmos": "https://github.com/SeanAshe/UnityCosmos.git?path=Assets/Cosmos"
   },

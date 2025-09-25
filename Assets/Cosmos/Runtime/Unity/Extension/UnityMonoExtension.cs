@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using Cosmos.system;
+using Cosmos.System;
 
-namespace Cosmos.unity
+namespace Cosmos.Unity
 {
     public static class UnityMonoExtension
     {

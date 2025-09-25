@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Cosmos.unity
+namespace Cosmos.Unity
 {
     [CreateAssetMenu(menuName = "StaticConfig/DateFormat")]
     public class DateFormat : ScriptableObject

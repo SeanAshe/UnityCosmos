@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Cosmos.unity
+namespace Cosmos.OperatorSystem
 {
     public interface IOperable
     {

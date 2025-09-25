@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-namespace Cosmos.system
+namespace Cosmos.System
 {
     public static class CollectionsExtension
     {
@@ -25,7 +25,7 @@ namespace Cosmos.system
         /// 洗牌算法 会改变原有集合顺序
         /// </summary>
         /// <returns></returns>
-        static public void Shuffle<T>(this IList<T> @this, in System.Random random = null)
+        static public void Shuffle<T>(this IList<T> @this, in global::System.Random random = null)
         {
             if (@this.IsNullorEmpty()) return;
             var length = @this.Count;
@@ -40,7 +40,7 @@ namespace Cosmos.system
         /// 洗牌算法 不改变原有集合顺序
         /// </summary>
         /// <returns></returns>
-        static public IEnumerable<T> ShuffleReturn<T>(this IReadOnlyCollection<T> @this, in System.Random random = null)
+        static public IEnumerable<T> ShuffleReturn<T>(this IReadOnlyCollection<T> @this, in global::System.Random random = null)
         {
             if (@this.IsNullorEmpty()) return null;
             T[] shuffled = new T[@this.Count];

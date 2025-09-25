@@ -174,15 +174,6 @@
         "com.unity.testtools.codecoverage": "1.2.6"
       }
     },
-    "com.unity.ide.cursor": {
-      "version": "https://github.com/boxqkrtm/com.unity.ide.cursor.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.unity.test-framework": "1.1.9"
-      },
-      "hash": "2c0153a9bab1abc783e5599fa2d2cc3c69d5e389"
-    },
     "com.unity.ide.rider": {
       "version": "3.0.36",
       "depth": 1,
@@ -306,6 +297,13 @@
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "jp.hadashikick.vcontainer": {
+      "version": "https://github.com/hadashiA/VContainer.git?path=VContainer/Assets/VContainer",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "0093a457d1abe17bbb97d9c0b7dea921c5e670e4"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

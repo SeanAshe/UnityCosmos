@@ -1,0 +1,16 @@
+{
+    "name": "Cosmos.DI",
+    "rootNamespace": "Cosmos",
+    "references": [
+        "GUID:26cf4d7e688bd804fb0f6ee8836795a5"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

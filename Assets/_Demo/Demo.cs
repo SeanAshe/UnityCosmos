@@ -1,4 +1,4 @@
-using Cosmos.unity;
+using Cosmos.Unity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,13 +7,43 @@ using System.Linq;
 using System;
 using System.Globalization;
 using System.Threading;
-using Cosmos.system;
+using Cosmos.System;
 using TinyPinyin;
-using Cosmos.math;
+using Cosmos.Math;
+using VContainer;
+using VContainer.Unity;
+
+public interface IA
+{
+    public int Value { get; }
+}
+public interface IB
+{
+    public string Value { get; }
+}
+
+public class A : IA, IInitializable
+{
+    int _value;
+    public void Initialize()
+    {
+        _value = 6;
+    }
+    public int Value => _value;
+}
+public class B : IB
+{
+    [Inject]
+    public IA a { get; set; }
+    public string Value => a.Value.ToString();
+}
+
+
 public class Demo : MonoBehaviour
 {
     private Button _button;
-    void Awake()
+
+    public void Start()
     {
         _button = GetComponent<Button>();
         _button.onClick.RemoveAllListeners();
@@ -28,11 +58,10 @@ public class Demo : MonoBehaviour
         // TestRandom();
         // var pinyin = "lv2";
         // Debug.Log(PinyinConverter.ToFormatPinyin(pinyin));
-        var a = "abcdefg";
-        var b = "abcdefghijk";
-        Debug.Log(string.Join('\n', Custom_LCS.Diff(a, b)));
+        // var a = "abcdefg";
+        // var b = "abcdefghijk";
+        // Debug.Log(TestDL.Instance.b.Value);
     }
-
     private void TestRandom()
     {
         int listLength = 20; // 示例列表长度

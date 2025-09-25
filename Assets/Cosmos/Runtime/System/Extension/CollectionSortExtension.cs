@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System;
 
-namespace Cosmos.system
+namespace Cosmos.System
 {
     public enum SortMethod
     {
