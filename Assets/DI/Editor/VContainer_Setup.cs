@@ -42,15 +42,13 @@ namespace Cosmos.DI
             EditorUtility.SetDirty(assetObject);
 
             // 写入RootLifetimeScope.cs
-            File.WriteAllText($"{Application.dataPath}/DIRefrences/RootLifetimeScope.cs", Script_Template.RootLifetimeScope_cs);
-            AssetDatabase.Refresh();
+            File.WriteAllText($"{Application.dataPath}/DIRefrences/RootScope.cs", Script_Template.RootLifetimeScope_cs);
             // 写入GameRoot.cs
             File.WriteAllText($"{Application.dataPath}/DIRefrences/GameRoot.cs", Script_Template.GameRoot_cs);
-            AssetDatabase.Refresh();
             // 写入AutoInjectHelperEditor.cs
             File.WriteAllText($"{Application.dataPath}/DIRefrences/AutoInjectHelperEditor.cs", Script_Template.AutoInjectHelperEditor_cs);
-            AssetDatabase.Refresh();
 
+            AssetDatabase.Refresh();
             EditorUtility.ClearProgressBar();
         }
 
