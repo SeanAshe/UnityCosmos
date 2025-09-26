@@ -11,17 +11,22 @@ namespace Cosmos.DI
     {
         static readonly string DIPath = Application.dataPath + "/DIRefrences/";
         static readonly string VContainerDLLPath = "Assets/DIRefrences/VContainer.SourceGenerator.dll";
-        [MenuItem("DI/VContainer Setup")]
+        static readonly string RootLifetimeScopeFile = DIPath + "RootLifetimeScope.cs";
+
+        [MenuItem("DI/VContainer Setup", false, 0)]
         static async void VContainer_Setup()
         {
+            if (!Directory.Exists(DIPath)) Directory.CreateDirectory(DIPath);
             if (!File.Exists(DIPath + "VContainer.SourceGenerator.dll"))
             {
-                EditorUtility.DisplayProgressBar("VContainer_Setup", $"Downloading VContainer...", 0);
-                if (!Directory.Exists(DIPath)) Directory.CreateDirectory(DIPath);
+                EditorUtility.DisplayProgressBar("VContainer Setup", $"Downloading VContainer...", 0);
                 await GithubReleaseDownload.Download("hadashiA", "VContainer", "VContainer.SourceGenerator.dll", DIPath);
                 EditorUtility.ClearProgressBar();
             }
             AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+
+            EditorUtility.DisplayProgressBar("VContainer Setup", $"Initialize VContainer...", 0);
+            //设置VContainer.SourceGenerator.dll
             PluginImporter pluginImporter = AssetImporter.GetAtPath(VContainerDLLPath) as PluginImporter;
             pluginImporter.SetCompatibleWithAnyPlatform(false);
             pluginImporter.SetCompatibleWithEditor(false);
@@ -32,20 +37,23 @@ namespace Cosmos.DI
             pluginImporter.SaveAndReimport();
 
             var assetObject = AssetDatabase.LoadAssetAtPath<Object>(VContainerDLLPath);
-            string[] labels = AssetDatabase.GetLabels(assetObject);
-            labels = labels.Append("RoslynAnalyzer").ToArray();
+            string[] labels = new string[] { "RoslynAnalyzer" };
             AssetDatabase.SetLabels(assetObject, labels);
             EditorUtility.SetDirty(assetObject);
-            AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+
+            // 写入RootLifetimeScope.cs
+            File.WriteAllText($"{Application.dataPath}/DIRefrences/RootLifetimeScope.cs", Script_Template.RootLifetimeScope_cs);
+            AssetDatabase.Refresh();
+            // 写入GameRoot.cs
+            File.WriteAllText($"{Application.dataPath}/DIRefrences/GameRoot.cs", Script_Template.GameRoot_cs);
+            AssetDatabase.Refresh();
+            // 写入AutoInjectHelperEditor.cs
+            File.WriteAllText($"{Application.dataPath}/DIRefrences/AutoInjectHelperEditor.cs", Script_Template.AutoInjectHelperEditor_cs);
+            AssetDatabase.Refresh();
+
+            EditorUtility.ClearProgressBar();
         }
-        public class GitHubRelease
-        {
-            public GitHubAsset[] assets { get; set; }
-        }
-        public class GitHubAsset
-        {
-            public string url { get; set; }
-            public string name { get; set; }
-        }
+
+
     }
 }

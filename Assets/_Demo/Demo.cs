@@ -13,32 +13,6 @@ using Cosmos.Math;
 using VContainer;
 using VContainer.Unity;
 
-public interface IA
-{
-    public int Value { get; }
-}
-public interface IB
-{
-    public string Value { get; }
-}
-
-public class A : IA, IInitializable
-{
-    int _value;
-    public void Initialize()
-    {
-        _value = 6;
-    }
-    public int Value => _value;
-}
-public class B : IB
-{
-    [Inject]
-    public IA a { get; set; }
-    public string Value => a.Value.ToString();
-}
-
-
 public class Demo : MonoBehaviour
 {
     private Button _button;
@@ -60,7 +34,6 @@ public class Demo : MonoBehaviour
         // Debug.Log(PinyinConverter.ToFormatPinyin(pinyin));
         // var a = "abcdefg";
         // var b = "abcdefghijk";
-        // Debug.Log(TestDL.Instance.b.Value);
     }
     private void TestRandom()
     {

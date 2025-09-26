@@ -2,7 +2,8 @@
     "name": "Cosmos.OperatorSystem",
     "rootNamespace": "Cosmos",
     "references": [
-        "GUID:26cf4d7e688bd804fb0f6ee8836795a5"
+        "GUID:26cf4d7e688bd804fb0f6ee8836795a5",
+        "GUID:4ecda417ffc8d2643bd98cb84fc4b043"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
