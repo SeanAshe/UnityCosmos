@@ -52,6 +52,8 @@ namespace Cosmos.DI
                 var gameRoot = File.ReadAllText(GameRoot);
                 gameRoot = gameRoot.Insert(gameRoot.IndexOf("// @Dont delete - for Register Singleton Model"),
                     $"[Inject] public I{className} {className} {{ get; set; }}\r\n        ");
+                gameRoot = gameRoot.Insert(gameRoot.IndexOf("// @Dont delete - Singleton Model Initialize"),
+                    $"Container.Resolve<{className}>().Initialize(); r\n            ");
                 File.WriteAllText(GameRoot, gameRoot);
                 AssetDatabase.Refresh();
             }
