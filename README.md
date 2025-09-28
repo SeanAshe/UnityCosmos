@@ -3,7 +3,7 @@
 ```Text
 https://github.com/SeanAshe/UnityCosmos.git?path=Assets/Cosmos
 ```
-# OperatorSystem
+# DI VContainer
 ```Text
-https://github.com/SeanAshe/UnityCosmos.git?path=Assets/OperatorSystem
+https://github.com/SeanAshe/UnityCosmos.git?path=Assets/DI
 ```
