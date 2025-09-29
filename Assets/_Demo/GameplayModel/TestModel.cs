@@ -1,10 +1,12 @@
+using UnityEngine;
 using Cosmos.Unity;
-public interface ITestModel
+public interface ITestModel: IGamePlayModel
 {
 }
-public class TestModel : ITestModel, IGamePlayModel
+public class TestModel : ITestModel
 {
     public void Initialize()
     {
+        Debug.LogError("TestModel");
     }
 }

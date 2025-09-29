@@ -57,7 +57,6 @@ namespace Cosmos.DI
 {
     public class GameplayModel : MonoSingleton<GameplayModel>, IStartable
     {
-        [Inject] public IObjectResolver Container { get; set; }
         // @Dont delete - for Register Singleton Model
         public void Start()
         {
@@ -128,9 +127,9 @@ namespace Cosmos.DI
                 // GameplayModel
                 var gameplayModel = File.ReadAllText(GameplayModelFile);
                 gameplayModel = gameplayModel.Insert(gameplayModel.IndexOf(""// @Dont delete - for Register Singleton Model""),
-                    $""[Inject] public I{className} {className} {{ get; set; }}\r\n        "");
+                    $""[Inject] public I{className} {className} {{ get; set; }}\r\n            "");
                 gameplayModel = gameplayModel.Insert(gameplayModel.IndexOf(""// @Dont delete - Singleton Model Initialize""),
-                    $""Container.Resolve<{className}>().Initialize();\r\n            "");
+                    $""{className}.Initialize();\r\n                "");
                 File.WriteAllText(GameplayModelFile, gameplayModel);
 
                 AssetDatabase.Refresh();
@@ -140,10 +139,10 @@ namespace Cosmos.DI
 @""using Cosmos.Unity;
 namespace xxxx
 {
-    public interface I{0}
+    public interface I{0}: IGamePlayModel
     {
     }
-    public class {0} : I{0}, IGamePlayModel
+    public class {0} : I{0}
     {
         public void Initialize()
         {
@@ -182,7 +181,7 @@ namespace xxxx
                 // Register
                 var register = File.ReadAllText(GlobalSignalScopeFile);
                 register = register.Insert(register.IndexOf(""// @Dont delete - for Register Global Signal""),
-                    $""builder.Register<{signalClassName}Signal>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();\r\n            builder.Register<{signalClassName}Command>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();\r\n            "");
+                    $""builder.Register<{signalClassName}Signal>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();\r\n                builder.Register<{signalClassName}Command>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();\r\n                "");
                 File.WriteAllText(GlobalSignalScopeFile, register);
                 AssetDatabase.Refresh();
             }

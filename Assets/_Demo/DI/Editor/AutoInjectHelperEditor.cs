@@ -61,17 +61,17 @@ namespace Cosmos.DI
                 gameplayModel = gameplayModel.Insert(gameplayModel.IndexOf("// @Dont delete - for Register Singleton Model"),
                     $"[Inject] public I{modelClassName} {modelClassName} {{ get; set; }}\r\n        ");
                 gameplayModel = gameplayModel.Insert(gameplayModel.IndexOf("// @Dont delete - Singleton Model Initialize"),
-                    $"Container.Resolve<{modelClassName}>().Initialize();\r\n            ");
+                    $"{modelClassName}.Initialize();\r\n            ");
                 File.WriteAllText(GameplayModelFile, gameplayModel);
                 AssetDatabase.Refresh();
             }
         }
         const string GameplayModel_cs =
 @"using Cosmos.Unity;
-public interface I{0}
+public interface I{0}: IGamePlayModel
 {
 }
-public class {0} : I{0}, IGamePlayModel
+public class {0} : I{0}
 {
     public void Initialize()
     {

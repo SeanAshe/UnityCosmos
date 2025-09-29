@@ -6,12 +6,13 @@ namespace Cosmos.DI
 {
     public class GameplayModel : MonoSingleton<GameplayModel>, IStartable
     {
-        [Inject] public IObjectResolver Container { get; set; }
         [Inject] public ITestModel TestModel { get; set; }
+        [Inject] public ITestModel2 TestModel2 { get; set; }
         // @Dont delete - for Register Singleton Model
         public void Start()
         {
-            Container.Resolve<IGamePlayModel>().Initialize();
+            TestModel.Initialize();
+            TestModel2.Initialize();
             // @Dont delete - Singleton Model Initialize
         }
     }

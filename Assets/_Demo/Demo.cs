@@ -19,6 +19,7 @@ public class Demo : MonoBehaviour
 {
     [Inject] public TestSignal testSignal  { get; set; }
     [Inject] public ITestModel testModel { get; set; }
+    [Inject] public ITestModel2 testModel2 { get; set; }
     private Button _button;
 
     public void Start()
@@ -40,6 +41,7 @@ public class Demo : MonoBehaviour
         // var b = "abcdefghijk";
         testSignal.Dispatch(1);
         Debug.LogError(testModel != null);
+        Debug.LogError(testModel2 != null);
     }
     private void TestRandom()
     {

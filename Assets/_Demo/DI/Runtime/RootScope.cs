@@ -13,6 +13,7 @@ namespace Cosmos.DI
         {
             // GamePlayModel
             builder.Register<TestModel>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<TestModel2>(Lifetime.Singleton).AsImplementedInterfaces();
             // @Dont delete - for Register Singleton Model
         }
         public void AddAutoInjectGameObject(GameObject gameObject)
