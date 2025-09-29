@@ -41,6 +41,8 @@ namespace Cosmos.DI
             AssetDatabase.SetLabels(assetObject, labels);
             EditorUtility.SetDirty(assetObject);
 
+            if (!Directory.Exists(DIPath + "Runtime")) Directory.CreateDirectory(DIPath + "Runtime");
+            if (!Directory.Exists(DIPath + "Editor")) Directory.CreateDirectory(DIPath + "Editor");
             // 写入RootLifetimeScope.cs
             File.WriteAllText($"{Application.dataPath}/DI/Runtime/RootScope.cs", Script_Template.RootLifetimeScope_cs);
             // 写入GameRoot.cs
