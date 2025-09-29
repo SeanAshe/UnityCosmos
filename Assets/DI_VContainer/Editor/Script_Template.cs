@@ -138,14 +138,17 @@ namespace Cosmos.DI
         }
         const string GameplayModel_cs =
 @""using Cosmos.Unity;
-public interface I{0}
+namespace xxxx
 {
-}
-public class {0} : I{0}, IGamePlayModel
-{
-    public void Initialize()
-{
-}
+    public interface I{0}
+    {
+    }
+    public class {0} : I{0}, IGamePlayModel
+    {
+        public void Initialize()
+        {
+        }
+    }
 }
 "";
     }
@@ -161,7 +164,7 @@ public class {0} : I{0}, IGamePlayModel
             var window = GetWindow(typeof(GenGlobalSignalHelperEditor));
             window.titleContent = new GUIContent(""GlobalSignal模板代码生成器"");
         }
-        static string signalClassName = "";
+        static string signalClassName = """";
         private void OnGUI()
         {
             signalClassName = EditorGUILayout.TextField(""起一个响亮的名字"", signalClassName);
@@ -186,11 +189,14 @@ public class {0} : I{0}, IGamePlayModel
         }
         const string GlobalSignal_cs =
 @""using Cosmos.DI;
-public class {0}Signal : BaseSingal<int> { }
-public class {0}Command : BaseCommand<int>
+namespace xxxx
 {
-    public override void Execute(int message)
+    public class {0}Signal : BaseSingal<int> { }
+    public class {0}Command : BaseCommand<int>
     {
+        public override void Execute(int message)
+        {
+        }
     }
 }
 "";
