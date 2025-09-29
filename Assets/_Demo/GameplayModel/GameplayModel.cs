@@ -4,7 +4,7 @@ using Cosmos.Unity;
 
 namespace Cosmos.DI
 {
-    public class GameRoot : MonoSingleton<GameRoot>, IStartable
+    public class GameplayModel : MonoSingleton<GameplayModel>, IStartable
     {
         [Inject] public IObjectResolver Container { get; set; }
         [Inject] public ITestModel TestModel { get; set; }

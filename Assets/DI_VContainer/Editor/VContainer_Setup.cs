@@ -9,8 +9,8 @@ namespace Cosmos.DI
 {
     public class VContainerSetupEditor : EditorWindow
     {
-        static readonly string DIPath = $"{Application.dataPath}/Scripts/GameplayModel/";
-        static readonly string GameplayModelPath = $"{Application.dataPath}/DI/";
+        static readonly string DIPath = $"{Application.dataPath}/DI/";
+        static readonly string GameplayModelPath = $"{Application.dataPath}/Scripts/GameplayModel/";
         const string VContainerDLLPath = "Assets/DI/VContainer.SourceGenerator.dll";
 
         [MenuItem("DI/VContainer Setup", false, 0)]

@@ -84,7 +84,7 @@ namespace Cosmos.DI
             var scopeObject = GameObject.Find(""RootScope"") ?? new GameObject(""RootScope"");
             scopeObject.transform.SetAsFirstSibling();
             var gamerootObject = GameObject.Find(""GameplayModel"") ?? new GameObject(""GameplayModel"");
-            gamerootObject.AddComponent<GameRoot>();
+            gamerootObject.AddComponent<GameplayModel>();
             gamerootObject.transform.SetSiblingIndex(1);
 
             var globalSignal = GameObject.Find(""GlobalSignalScope"") ?? new GameObject(""GlobalSignalScope"");
@@ -95,7 +95,7 @@ namespace Cosmos.DI
             scope.AddAutoInjectGameObject(gamerootObject);
         }
         static readonly string RootScopeFile = Application.dataPath + ""/DI/Runtime/RootScope.cs"";
-        static readonly string GameRoot = Application.dataPath + ""/Scripts/GameplayModel/GameplayModel.cs"";
+        static readonly string GameplayModelFile = Application.dataPath + ""/Scripts/GameplayModel/GameplayModel.cs"";
         static readonly string GameplayModelFolder = Application.dataPath + ""/Scripts/GameplayModel/"";
 
         [MenuItem(""代码生成/生成 Singleton Model 模板代码"", false, 0)]
@@ -124,13 +124,13 @@ namespace Cosmos.DI
                     $""builder.Register<{className}>(Lifetime.Singleton).AsImplementedInterfaces();\r\n            "");
                 File.WriteAllText(RootScopeFile, register);
 
-                // GameRoot
-                var gameRoot = File.ReadAllText(GameRoot);
-                gameRoot = gameRoot.Insert(gameRoot.IndexOf(""// @Dont delete - for Register Singleton Model""),
-                    $""[Inject] public I{className} {className} {{ get; set; }}r\n        "");
-                gameRoot = gameRoot.Insert(gameRoot.IndexOf(""// @Dont delete - Singleton Model Initialize""),
-                    $""Container.Resolve<{className}>().Initialize();r\n            "");
-                File.WriteAllText(GameRoot, gameRoot);
+                // GameplayModel
+                var gameplayModel = File.ReadAllText(GameplayModelFile);
+                gameplayModel = gameplayModel.Insert(gameplayModel.IndexOf(""// @Dont delete - for Register Singleton Model""),
+                    $""[Inject] public I{className} {className} {{ get; set; }}\r\n        "");
+                gameplayModel = gameplayModel.Insert(gameplayModel.IndexOf(""// @Dont delete - Singleton Model Initialize""),
+                    $""Container.Resolve<{className}>().Initialize();\r\n            "");
+                File.WriteAllText(GameplayModelFile, gameplayModel);
 
                 AssetDatabase.Refresh();
             }

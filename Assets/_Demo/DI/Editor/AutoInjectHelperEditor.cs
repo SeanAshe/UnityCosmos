@@ -10,16 +10,22 @@ namespace Cosmos.DI
         [MenuItem("DI/VContainer Initialize", false, 1)]
         public static void VContainerInitializeEditor()
         {
-            var scopeObject = GameObject.Find("RootLifetimeScope") ?? new GameObject("RootLifetimeScope");
+            var scopeObject = GameObject.Find("RootScope") ?? new GameObject("RootScope");
             scopeObject.transform.SetAsFirstSibling();
-            var gamerootObject = GameObject.Find("GameRoot") ?? new GameObject("GameRoot");
-            gamerootObject.AddComponent<GameRoot>();
+            var gamerootObject = GameObject.Find("GameplayModel") ?? new GameObject("GameplayModel");
+            gamerootObject.AddComponent<GameplayModel>();
+            gamerootObject.transform.SetSiblingIndex(1);
+
+            var globalSignal = GameObject.Find("GlobalSignalScope") ?? new GameObject("GlobalSignalScope");
+            globalSignal.AddComponent<GlobalSignalScope>();
+            globalSignal.transform.SetSiblingIndex(2);
+
 
             var scope = scopeObject.AddComponent<RootLifetimeScope>();
             scope.AddAutoInjectGameObject(gamerootObject);
         }
-        static readonly string RootLifetimeScopeFile = Application.dataPath + "/_Demo/DI/Runtime/RootScope.cs";
-        static readonly string GameRoot = Application.dataPath + "/_Demo/DI/Runtime/GameRoot.cs";
+        static readonly string RootScopeFile = Application.dataPath + "/_Demo/DI/Runtime/RootScope.cs";
+        static readonly string GameplayModelFile = Application.dataPath + "/_Demo/GameplayModel/GameplayModel.cs";
         static readonly string GameplayModelFolder = Application.dataPath + "/_Demo/GameplayModel/";
 
         [MenuItem("DI/生成 Singleton Model 模板代码", false, 2)]
@@ -43,18 +49,18 @@ namespace Cosmos.DI
                 File.WriteAllText(GameplayModelFolder + className + ".cs", modelFile);
 
                 // Register
-                var register = File.ReadAllText(RootLifetimeScopeFile);
+                var register = File.ReadAllText(RootScopeFile);
                 register = register.Insert(register.IndexOf("// @Dont delete - for Register Singleton Model"),
                     $"builder.Register<{className}>(Lifetime.Singleton).AsImplementedInterfaces();\r\n            ");
-                File.WriteAllText(RootLifetimeScopeFile, register);
+                File.WriteAllText(RootScopeFile, register);
 
-                // GameRoot
-                var gameRoot = File.ReadAllText(GameRoot);
-                gameRoot = gameRoot.Insert(gameRoot.IndexOf("// @Dont delete - for Register Singleton Model"),
+                // GameplayModel
+                var gameplayModel = File.ReadAllText(GameplayModelFile);
+                gameplayModel = gameplayModel.Insert(gameplayModel.IndexOf("// @Dont delete - for Register Singleton Model"),
                     $"[Inject] public I{className} {className} {{ get; set; }}\r\n        ");
-                gameRoot = gameRoot.Insert(gameRoot.IndexOf("// @Dont delete - Singleton Model Initialize"),
-                    $"Container.Resolve<{className}>().Initialize(); r\n            ");
-                File.WriteAllText(GameRoot, gameRoot);
+                gameplayModel = gameplayModel.Insert(gameplayModel.IndexOf("// @Dont delete - Singleton Model Initialize"),
+                    $"Container.Resolve<{className}>().Initialize();\r\n            ");
+                File.WriteAllText(GameplayModelFile, gameplayModel);
                 AssetDatabase.Refresh();
             }
         }
