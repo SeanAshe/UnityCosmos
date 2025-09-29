@@ -1,0 +1,13 @@
+{
+  "name": "com.sean.unity-di-vcontainer",
+  "displayName": "Unity Cosmos DI",
+  "description": "Unity Cosmos DI",
+  "dependencies": {
+    "com.sean.unity-cosmos": "https://github.com/SeanAshe/UnityCosmos.git?path=Assets/Cosmos",
+    "jp.hadashikick.vcontainer": "https://github.com/hadashiA/VContainer.git?path=VContainer/Assets/VContainer",
+    "com.cysharp.messagepipe": "https://github.com/Cysharp/MessagePipe.git?path=src/MessagePipe.Unity/Assets/Plugins/MessagePipe",
+    "com.cysharp.messagepipe.vcontainer" : "https://github.com/Cysharp/MessagePipe.git?path=src/MessagePipe.Unity/Assets/Plugins/MessagePipe.VContainer",
+    "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask"
+  },
+  "version": "0.2.0"
+}

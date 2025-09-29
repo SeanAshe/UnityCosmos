@@ -9,8 +9,8 @@ namespace Cosmos.DI
 {
     public class VContainerSetupEditor : EditorWindow
     {
-        static readonly string DIPath = Application.dataPath + "/DIRefrences/";
-        static readonly string VContainerDLLPath = "Assets/DIRefrences/VContainer.SourceGenerator.dll";
+        static readonly string DIPath = Application.dataPath + "/DI/";
+        static readonly string VContainerDLLPath = "Assets/DI/VContainer.SourceGenerator.dll";
         static readonly string RootLifetimeScopeFile = DIPath + "RootLifetimeScope.cs";
 
         [MenuItem("DI/VContainer Setup", false, 0)]
@@ -42,11 +42,11 @@ namespace Cosmos.DI
             EditorUtility.SetDirty(assetObject);
 
             // 写入RootLifetimeScope.cs
-            File.WriteAllText($"{Application.dataPath}/DIRefrences/RootScope.cs", Script_Template.RootLifetimeScope_cs);
+            File.WriteAllText($"{Application.dataPath}/DI/RootScope.cs", Script_Template.RootLifetimeScope_cs);
             // 写入GameRoot.cs
-            File.WriteAllText($"{Application.dataPath}/DIRefrences/GameRoot.cs", Script_Template.GameRoot_cs);
+            File.WriteAllText($"{Application.dataPath}/DI/GameRoot.cs", Script_Template.GameRoot_cs);
             // 写入AutoInjectHelperEditor.cs
-            File.WriteAllText($"{Application.dataPath}/DIRefrences/AutoInjectHelperEditor.cs", Script_Template.AutoInjectHelperEditor_cs);
+            File.WriteAllText($"{Application.dataPath}/DI/AutoInjectHelperEditor.cs", Script_Template.AutoInjectHelperEditor_cs);
 
             AssetDatabase.Refresh();
             EditorUtility.ClearProgressBar();

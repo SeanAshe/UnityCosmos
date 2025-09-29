@@ -5,10 +5,11 @@ namespace Cosmos.DI
     public static class Script_Template
     {
         public const string RootLifetimeScope_cs =
-@"using UnityEngine;
+@"using System.Collections.Generic;
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
-using System.Collections.Generic;
+using MessagePipe;
 
 namespace Cosmos.DI
 {
@@ -16,6 +17,10 @@ namespace Cosmos.DI
     {
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.RegisterMessagePipe();
+            builder.RegisterBuildCallback(c => GlobalMessagePipe.SetProvider(c.AsServiceProvider()));
+
+            // GamePlayModel
             // @Dont delete - for Register Singleton Model
         }
         public void AddAutoInjectGameObject(GameObject gameObject)
@@ -64,8 +69,8 @@ namespace Cosmos.DI
             var scope = scopeObject.AddComponent<RootLifetimeScope>();
             scope.AddAutoInjectGameObject(gamerootObject);
         }
-        static readonly string RootLifetimeScopeFile = Application.dataPath + ""/DIRefrences/RootLifetimeScope.cs"";
-        static readonly string GameRoot = Application.dataPath + ""/DIRefrences/GameRoot.cs"";
+        static readonly string RootLifetimeScopeFile = Application.dataPath + ""/DI/RootLifetimeScope.cs"";
+        static readonly string GameRoot = Application.dataPath + ""/DI/GameRoot.cs"";
         static readonly string GameplayModelFolder = Application.dataPath + ""/_Demo/GameplayModel/"";
 
         [MenuItem(""DI/生成 Singleton Model 模板代码"", false, 2)]
@@ -107,10 +112,10 @@ namespace Cosmos.DI
         }
         const string GameplayModel_cs =
 @""using Cosmos.Unity;
-public interface I {0}
+public interface I{0}
 {
 }
-public class {0} : IGamePlayModel
+public class {0} : I{0}, IGamePlayModel
 {
     public void Initialize()
 {

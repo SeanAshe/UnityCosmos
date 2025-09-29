@@ -11,7 +11,7 @@ namespace Cosmos.DI
         // @Dont delete - for Register Singleton Model
         public void Start()
         {
-            Container.Resolve<TestModel>().Initialize();
+            Container.Resolve<IGamePlayModel>().Initialize();
             // @Dont delete - Singleton Model Initialize
         }
     }

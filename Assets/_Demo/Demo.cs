@@ -1,4 +1,5 @@
 using Cosmos.Unity;
+using Cosmos.DI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,9 +13,12 @@ using TinyPinyin;
 using Cosmos.Math;
 using VContainer;
 using VContainer.Unity;
+using MessagePipe;
 
 public class Demo : MonoBehaviour
 {
+    [Inject] public TestSignal testSignal  { get; set; }
+    [Inject] public TestSignal testModel { get; set; }
     private Button _button;
 
     public void Start()
@@ -34,6 +38,8 @@ public class Demo : MonoBehaviour
         // Debug.Log(PinyinConverter.ToFormatPinyin(pinyin));
         // var a = "abcdefg";
         // var b = "abcdefghijk";
+        testSignal.Dispatch(1);
+        Debug.LogError(testModel != null);
     }
     private void TestRandom()
     {
@@ -59,5 +65,13 @@ public class Demo : MonoBehaviour
         }
         Debug.Log($"\n--- 验证前 {listLength} 次抽取是否全部不重复: {seenItems.Count == listLength} ---");
         Debug.Log(string.Join(", ", seenItems));
+    }
+}
+public class TestSignal : BaseSingal<TestCommand, int> { }
+public class TestCommand : BaseCommand<int>
+{
+    public override void Execute(int message)
+    {
+        Debug.LogError(message);
     }
 }
