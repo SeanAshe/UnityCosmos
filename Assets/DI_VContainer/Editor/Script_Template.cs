@@ -96,7 +96,7 @@ namespace Cosmos.DI
                 // Register
                 var register = File.ReadAllText(RootLifetimeScopeFile);
                 register = register.Insert(register.IndexOf(""// @Dont delete - for Register Singleton Model""),
-                    $""builder.Register<{className}>(Lifetime.Singleton).AsImplementedInterfaces();r\n            ""\);
+                    $""builder.Register<{className}>(Lifetime.Singleton).AsImplementedInterfaces();\r\n            "");
                 File.WriteAllText(RootLifetimeScopeFile, register);
 
                 // GameRoot
