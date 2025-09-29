@@ -110,6 +110,9 @@ public class {0} : I{0}
                 var register = File.ReadAllText(GlobalSignalScopeFile);
                 register = register.Insert(register.IndexOf("// @Dont delete - for Register Global Signal"),
                     $"builder.Register<{signalClassName}Signal>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();\r\n            builder.Register<{signalClassName}Command>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();\r\n            ");
+                register = register.Insert(register.IndexOf("// @Dont delete - for Bind Global Signal"),
+                    $"container.Resolve<{signalClassName}Signal>().Bind(container.Resolve<{signalClassName}Command>());\r\n                ");
+
                 File.WriteAllText(GlobalSignalScopeFile, register);
                 AssetDatabase.Refresh();
             }

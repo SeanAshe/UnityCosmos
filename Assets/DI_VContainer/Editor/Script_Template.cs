@@ -41,10 +41,15 @@ namespace Cosmos.DI
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterMessagePipe();
-            builder.RegisterBuildCallback(c => GlobalMessagePipe.SetProvider(c.AsServiceProvider()));
 
             // Global Signal
             // @Dont delete - for Register Global Signal
+
+            builder.RegisterBuildCallback(container =>
+            {
+                GlobalMessagePipe.SetProvider(container.AsServiceProvider());
+                // @Dont delete - for Bind Global Signal
+            });
         }
     }
 }";
@@ -182,6 +187,8 @@ namespace xxxx
                 var register = File.ReadAllText(GlobalSignalScopeFile);
                 register = register.Insert(register.IndexOf(""// @Dont delete - for Register Global Signal""),
                     $""builder.Register<{signalClassName}Signal>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();\r\n                builder.Register<{signalClassName}Command>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();\r\n                "");
+                register = register.Insert(register.IndexOf(""// @Dont delete - for Bind Global Signal""),
+                    $""container.Resolve<{signalClassName}Signal>().Bind(container.Resolve<{signalClassName}Command>());\r\n                "");
                 File.WriteAllText(GlobalSignalScopeFile, register);
                 AssetDatabase.Refresh();
             }
