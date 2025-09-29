@@ -6,7 +6,7 @@ using System;
 
 namespace Cosmos.DI
 {
-    public abstract class BaseSingal<TCommand, T> where TCommand : BaseCommand<T>
+    public abstract class BaseSingal<T>
     {
         [Inject]
         readonly IPublisher<T> publisher;

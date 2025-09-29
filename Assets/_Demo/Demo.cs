@@ -18,7 +18,7 @@ using MessagePipe;
 public class Demo : MonoBehaviour
 {
     [Inject] public TestSignal testSignal  { get; set; }
-    [Inject] public TestSignal testModel { get; set; }
+    [Inject] public ITestModel testModel { get; set; }
     private Button _button;
 
     public void Start()
@@ -65,13 +65,5 @@ public class Demo : MonoBehaviour
         }
         Debug.Log($"\n--- 验证前 {listLength} 次抽取是否全部不重复: {seenItems.Count == listLength} ---");
         Debug.Log(string.Join(", ", seenItems));
-    }
-}
-public class TestSignal : BaseSingal<TestCommand, int> { }
-public class TestCommand : BaseCommand<int>
-{
-    public override void Execute(int message)
-    {
-        Debug.LogError(message);
     }
 }

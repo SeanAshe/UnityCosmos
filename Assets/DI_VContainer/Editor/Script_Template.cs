@@ -94,6 +94,9 @@ namespace Cosmos.DI
             var scope = scopeObject.AddComponent<RootScope>();
             scope.AddAutoInjectGameObject(gamerootObject);
         }
+    }
+    public class GenGamePlayModelHelperEditor : EditorWindow
+    {
         static readonly string RootScopeFile = Application.dataPath + ""/DI/Runtime/RootScope.cs"";
         static readonly string GameplayModelFile = Application.dataPath + ""/Scripts/GameplayModel/GameplayModel.cs"";
         static readonly string GameplayModelFolder = Application.dataPath + ""/Scripts/GameplayModel/"";
@@ -148,8 +151,53 @@ public class {0} : I{0}, IGamePlayModel
 }
 "";
     }
-}";
+    public class GenGlobalSignalHelperEditor : EditorWindow
+    {
+        static readonly string GlobalSignalFolder = Application.dataPath + ""/Scripts/GlobalSignals/"";
+        static readonly string GlobalSignalScopeFile = Application.dataPath + ""/DI/Runtime/GlobalSignalScope.cs"";
 
+
+        [MenuItem(""代码生成/生成 Global Signal 模板代码"", false, 1)]
+        public static void ShowWindow()
+        {
+            var window = GetWindow(typeof(GenGlobalSignalHelperEditor));
+            window.titleContent = new GUIContent(""GlobalSignal模板代码生成器"");
+        }
+        static string signalClassName = "";
+        private void OnGUI()
+        {
+            signalClassName = EditorGUILayout.TextField(""起一个响亮的名字"", signalClassName);
+            if (signalClassName.IsNullOrEmpty())
+            {
+                GUILayout.Label(""类名不合法"");
+                return;
+            }
+            if (GUILayout.Button(""生成!""))
+            {
+                var modelFile = GlobalSignal_cs.Replace(""{0}"", signalClassName);
+                if (!Directory.Exists(GlobalSignalFolder)) Directory.CreateDirectory(GlobalSignalFolder);
+                File.WriteAllText(GlobalSignalFolder + signalClassName + ""Signal.cs"", modelFile);
+
+                // Register
+                var register = File.ReadAllText(GlobalSignalScopeFile);
+                register = register.Insert(register.IndexOf(""// @Dont delete - for Register Global Signal""),
+                    $""builder.Register<{signalClassName}Signal>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();\r\n            builder.Register<{signalClassName}Command>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();\r\n            "");
+                File.WriteAllText(GlobalSignalScopeFile, register);
+                AssetDatabase.Refresh();
+            }
+        }
+        const string GlobalSignal_cs =
+@""using Cosmos.DI;
+public class {0}Signal : BaseSingal<int> { }
+public class {0}Command : BaseCommand<int>
+{
+    public override void Execute(int message)
+    {
+    }
+}
+"";
+    }
+}";
 
     }
 }

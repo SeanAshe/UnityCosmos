@@ -20,46 +20,48 @@ namespace Cosmos.DI
             globalSignal.AddComponent<GlobalSignalScope>();
             globalSignal.transform.SetSiblingIndex(2);
 
-
             var scope = scopeObject.AddComponent<RootLifetimeScope>();
             scope.AddAutoInjectGameObject(gamerootObject);
         }
+    }
+    public class GenGamePlayModelHelperEditor : EditorWindow
+    {
         static readonly string RootScopeFile = Application.dataPath + "/_Demo/DI/Runtime/RootScope.cs";
         static readonly string GameplayModelFile = Application.dataPath + "/_Demo/GameplayModel/GameplayModel.cs";
         static readonly string GameplayModelFolder = Application.dataPath + "/_Demo/GameplayModel/";
 
-        [MenuItem("DI/生成 Singleton Model 模板代码", false, 2)]
-        public static void ShowWindow()
+        [MenuItem("代码生成/生成 Singleton Model 模板代码", false, 0)]
+        public static void ShowGenModelWindow()
         {
-            var window = GetWindow(typeof(AutoInjectHelperEditor));
+            var window = GetWindow(typeof(GenGamePlayModelHelperEditor));
             window.titleContent = new GUIContent("GameplayModel模板代码生成器");
         }
-        static string className = "";
+        static string modelClassName = "";
         private void OnGUI()
         {
-            className = EditorGUILayout.TextField("起一个响亮的名字", className);
-            if (className.IsNullOrEmpty())
+            modelClassName = EditorGUILayout.TextField("起一个响亮的名字", modelClassName);
+            if (modelClassName.IsNullOrEmpty())
             {
                 GUILayout.Label("类名不合法");
                 return;
             }
             if (GUILayout.Button("生成!"))
             {
-                var modelFile = GameplayModel_cs.Replace("{0}", className);
-                File.WriteAllText(GameplayModelFolder + className + ".cs", modelFile);
+                var modelFile = GameplayModel_cs.Replace("{0}", modelClassName);
+                File.WriteAllText(GameplayModelFolder + modelClassName + ".cs", modelFile);
 
                 // Register
                 var register = File.ReadAllText(RootScopeFile);
                 register = register.Insert(register.IndexOf("// @Dont delete - for Register Singleton Model"),
-                    $"builder.Register<{className}>(Lifetime.Singleton).AsImplementedInterfaces();\r\n            ");
+                    $"builder.Register<{modelClassName}>(Lifetime.Singleton).AsImplementedInterfaces();\r\n            ");
                 File.WriteAllText(RootScopeFile, register);
 
                 // GameplayModel
                 var gameplayModel = File.ReadAllText(GameplayModelFile);
                 gameplayModel = gameplayModel.Insert(gameplayModel.IndexOf("// @Dont delete - for Register Singleton Model"),
-                    $"[Inject] public I{className} {className} {{ get; set; }}\r\n        ");
+                    $"[Inject] public I{modelClassName} {modelClassName} {{ get; set; }}\r\n        ");
                 gameplayModel = gameplayModel.Insert(gameplayModel.IndexOf("// @Dont delete - Singleton Model Initialize"),
-                    $"Container.Resolve<{className}>().Initialize();\r\n            ");
+                    $"Container.Resolve<{modelClassName}>().Initialize();\r\n            ");
                 File.WriteAllText(GameplayModelFile, gameplayModel);
                 AssetDatabase.Refresh();
             }
@@ -72,6 +74,52 @@ public interface I{0}
 public class {0} : I{0}, IGamePlayModel
 {
     public void Initialize()
+    {
+    }
+}
+";
+    }
+    public class GenGlobalSignalHelperEditor : EditorWindow
+    {
+        static readonly string GlobalSignalFolder = Application.dataPath + "/_Demo/GlobalSignals/";
+        static readonly string GlobalSignalScopeFile = Application.dataPath + "/_Demo/DI/Runtime/GlobalSignalScope.cs";
+
+
+        [MenuItem("代码生成/生成 Global Signal 模板代码", false, 1)]
+        public static void ShowWindow()
+        {
+            var window = GetWindow(typeof(GenGlobalSignalHelperEditor));
+            window.titleContent = new GUIContent("GlobalSignal模板代码生成器");
+        }
+        static string signalClassName = "";
+        private void OnGUI()
+        {
+            signalClassName = EditorGUILayout.TextField("起一个响亮的名字", signalClassName);
+            if (signalClassName.IsNullOrEmpty())
+            {
+                GUILayout.Label("类名不合法");
+                return;
+            }
+            if (GUILayout.Button("生成!"))
+            {
+                var modelFile = GlobalSignal_cs.Replace("{0}", signalClassName);
+                if (!Directory.Exists(GlobalSignalFolder)) Directory.CreateDirectory(GlobalSignalFolder);
+                File.WriteAllText(GlobalSignalFolder + signalClassName + "Signal.cs", modelFile);
+
+                // Register
+                var register = File.ReadAllText(GlobalSignalScopeFile);
+                register = register.Insert(register.IndexOf("// @Dont delete - for Register Global Signal"),
+                    $"builder.Register<{signalClassName}Signal>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();\r\n            builder.Register<{signalClassName}Command>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();\r\n            ");
+                File.WriteAllText(GlobalSignalScopeFile, register);
+                AssetDatabase.Refresh();
+            }
+        }
+        const string GlobalSignal_cs =
+@"using Cosmos.DI;
+public class {0}Signal : BaseSingal<int> { }
+public class {0}Command : BaseCommand<int>
+{
+    public override void Execute(int message)
     {
     }
 }
