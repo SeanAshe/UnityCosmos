@@ -69,8 +69,8 @@ namespace Cosmos.DI
             var scope = scopeObject.AddComponent<RootLifetimeScope>();
             scope.AddAutoInjectGameObject(gamerootObject);
         }
-        static readonly string RootLifetimeScopeFile = Application.dataPath + ""/DI/RootLifetimeScope.cs"";
-        static readonly string GameRoot = Application.dataPath + ""/DI/GameRoot.cs"";
+        static readonly string RootLifetimeScopeFile = Application.dataPath + ""/DI/Runtime/RootLifetimeScope.cs"";
+        static readonly string GameRoot = Application.dataPath + ""/DI/Runtime/GameRoot.cs"";
         static readonly string GameplayModelFolder = Application.dataPath + ""/_Demo/GameplayModel/"";
 
         [MenuItem(""DI/生成 Singleton Model 模板代码"", false, 2)]
