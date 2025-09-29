@@ -17,9 +17,6 @@ namespace Cosmos.DI
     {
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterMessagePipe();
-            builder.RegisterBuildCallback(c => GlobalMessagePipe.SetProvider(c.AsServiceProvider()));
-
             // GamePlayModel
             // @Dont delete - for Register Singleton Model
         }
@@ -60,6 +57,7 @@ namespace Cosmos.DI
 {
     public class GameplayModel : MonoSingleton<GameplayModel>, IStartable
     {
+        [Inject] public IObjectResolver Container { get; set; }
         // @Dont delete - for Register Singleton Model
         public void Start()
         {
@@ -104,7 +102,7 @@ namespace Cosmos.DI
         [MenuItem(""代码生成/生成 Singleton Model 模板代码"", false, 0)]
         public static void ShowWindow()
         {
-            var window = GetWindow(typeof(AutoInjectHelperEditor));
+            var window = GetWindow(typeof(GenGamePlayModelHelperEditor));
             window.titleContent = new GUIContent(""GameplayModel模板代码生成器"");
         }
         static string className = """";
