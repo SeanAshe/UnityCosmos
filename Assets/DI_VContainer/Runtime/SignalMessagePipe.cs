@@ -10,35 +10,24 @@ namespace Cosmos.DI
     {
         [Inject]
         readonly IPublisher<T> publisher;
-        [Inject]
-        readonly TCommand command;
-        public BaseSingal()
-        {
-            command.Initialize();
-        }
-
-        public void Dispatch(T message)
-        {
-            publisher.Publish(message);
-        }
+        public void Dispatch(T message) => publisher.Publish(message);
     }
-
-    public abstract class BaseCommand<T> : IDisposable
+    public abstract class BaseCommand<T> : IStartable, IDisposable
     {
         [Inject]
-        ISubscriber<T> subscriber;
-        IDisposable disposable;
-        DisposableBagBuilder bag;
-        public void Initialize()
+        readonly ISubscriber<T> subscriber;
+        private readonly DisposableBagBuilder bag;
+        private IDisposable disposable;
+        public BaseCommand()
         {
             bag = DisposableBag.CreateBuilder();
+        }
+        void IStartable.Start()
+        {
             subscriber.Subscribe(Execute).AddTo(bag);
             disposable = bag.Build();
         }
+        void IDisposable.Dispose() => disposable.Dispose();
         public abstract void Execute(T message);
-        public void Dispose()
-        {
-            disposable.Dispose();
-        }
     }
 }

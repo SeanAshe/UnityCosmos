@@ -5,5 +5,5 @@
   "dependencies": {
     "com.sean.unity-cosmos": "https://github.com/SeanAshe/UnityCosmos.git?path=Assets/Cosmos"
   },
-  "version": "0.2.1"
+  "version": "0.2.2"
 }
