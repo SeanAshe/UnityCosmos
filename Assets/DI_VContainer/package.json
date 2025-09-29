@@ -3,7 +3,8 @@
   "displayName": "Unity Cosmos DI",
   "description": "Unity Cosmos DI",
   "dependencies": {
-    "com.sean.unity-cosmos": "https://github.com/SeanAshe/UnityCosmos.git?path=Assets/Cosmos"
+    "com.sean.unity-cosmos": "https://github.com/SeanAshe/UnityCosmos.git?path=Assets/Cosmos",
+    "jp.hadashikick.vcontainer": "https://github.com/hadashiA/VContainer.git?path=VContainer/Assets/VContainer"
   },
   "version": "0.2.1"
 }
