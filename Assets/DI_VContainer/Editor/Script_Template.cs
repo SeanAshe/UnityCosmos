@@ -4,7 +4,7 @@ namespace Cosmos.DI
 {
     public static class Script_Template
     {
-        public const string RootLifetimeScope_cs =
+        public const string RootScope_cs =
 @"using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
@@ -13,7 +13,7 @@ using MessagePipe;
 
 namespace Cosmos.DI
 {
-    public class RootLifetimeScope : LifetimeScope
+    public class RootScope : LifetimeScope
     {
         protected override void Configure(IContainerBuilder builder)
         {
@@ -31,14 +31,34 @@ namespace Cosmos.DI
     }
 }
 ";
-        public const string GameRoot_cs =
+
+        public const string GlobalSignalScope_cs =
+@"using VContainer;
+using VContainer.Unity;
+using MessagePipe;
+
+namespace Cosmos.DI
+{
+    public class GlobalSignalScope : LifetimeScope
+    {
+        protected override void Configure(IContainerBuilder builder)
+        {
+            builder.RegisterMessagePipe();
+            builder.RegisterBuildCallback(c => GlobalMessagePipe.SetProvider(c.AsServiceProvider()));
+
+            // Global Signal
+            // @Dont delete - for Register Global Signal
+        }
+    }
+}";
+        public const string GameplayModel_cs =
 @"using VContainer;
 using VContainer.Unity;
 using Cosmos.Unity;
 
 namespace Cosmos.DI
 {
-    public class GameRoot : MonoSingleton<GameRoot>, IStartable
+    public class GameplayModel : MonoSingleton<GameplayModel>, IStartable
     {
         // @Dont delete - for Register Singleton Model
         public void Start()
@@ -61,19 +81,24 @@ namespace Cosmos.DI
         [MenuItem(""DI/VContainer Initialize"", false, 1)]
         public static void VContainerInitializeEditor()
         {
-            var scopeObject = GameObject.Find(""RootLifetimeScope"") ?? new GameObject(""RootLifetimeScope"");
+            var scopeObject = GameObject.Find(""RootScope"") ?? new GameObject(""RootScope"");
             scopeObject.transform.SetAsFirstSibling();
-            var gamerootObject = GameObject.Find(""GameRoot"") ?? new GameObject(""GameRoot"");
+            var gamerootObject = GameObject.Find(""GameplayModel"") ?? new GameObject(""GameplayModel"");
             gamerootObject.AddComponent<GameRoot>();
+            gamerootObject.transform.SetSiblingIndex(1);
 
-            var scope = scopeObject.AddComponent<RootLifetimeScope>();
+            var globalSignal = GameObject.Find(""GlobalSignalScope"") ?? new GameObject(""GlobalSignalScope"");
+            globalSignal.AddComponent<GlobalSignalScope>();
+            globalSignal.transform.SetSiblingIndex(2);
+
+            var scope = scopeObject.AddComponent<RootScope>();
             scope.AddAutoInjectGameObject(gamerootObject);
         }
-        static readonly string RootLifetimeScopeFile = Application.dataPath + ""/DI/Runtime/RootLifetimeScope.cs"";
-        static readonly string GameRoot = Application.dataPath + ""/DI/Runtime/GameRoot.cs"";
-        static readonly string GameplayModelFolder = Application.dataPath + ""/_Demo/GameplayModel/"";
+        static readonly string RootScopeFile = Application.dataPath + ""/DI/Runtime/RootScope.cs"";
+        static readonly string GameRoot = Application.dataPath + ""/Scripts/GameplayModel/GameplayModel.cs"";
+        static readonly string GameplayModelFolder = Application.dataPath + ""/Scripts/GameplayModel/"";
 
-        [MenuItem(""DI/生成 Singleton Model 模板代码"", false, 2)]
+        [MenuItem(""代码生成/生成 Singleton Model 模板代码"", false, 0)]
         public static void ShowWindow()
         {
             var window = GetWindow(typeof(AutoInjectHelperEditor));
@@ -94,10 +119,10 @@ namespace Cosmos.DI
                 File.WriteAllText(GameplayModelFolder + className + "".cs"", modelFile);
 
                 // Register
-                var register = File.ReadAllText(RootLifetimeScopeFile);
+                var register = File.ReadAllText(RootScopeFile);
                 register = register.Insert(register.IndexOf(""// @Dont delete - for Register Singleton Model""),
                     $""builder.Register<{className}>(Lifetime.Singleton).AsImplementedInterfaces();\r\n            "");
-                File.WriteAllText(RootLifetimeScopeFile, register);
+                File.WriteAllText(RootScopeFile, register);
 
                 // GameRoot
                 var gameRoot = File.ReadAllText(GameRoot);

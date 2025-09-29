@@ -9,15 +9,15 @@ namespace Cosmos.DI
 {
     public class VContainerSetupEditor : EditorWindow
     {
-        static readonly string DIPath = Application.dataPath + "/DI/";
-        static readonly string VContainerDLLPath = "Assets/DI/VContainer.SourceGenerator.dll";
-        static readonly string RootLifetimeScopeFile = DIPath + "RootLifetimeScope.cs";
+        static readonly string DIPath = $"{Application.dataPath}/Scripts/GameplayModel/";
+        static readonly string GameplayModelPath = $"{Application.dataPath}/DI/";
+        const string VContainerDLLPath = "Assets/DI/VContainer.SourceGenerator.dll";
 
         [MenuItem("DI/VContainer Setup", false, 0)]
         static async void VContainer_Setup()
         {
             if (!Directory.Exists(DIPath)) Directory.CreateDirectory(DIPath);
-            if (!File.Exists(DIPath + "VContainer.SourceGenerator.dll"))
+            if (!File.Exists($"{DIPath}VContainer.SourceGenerator.dll"))
             {
                 EditorUtility.DisplayProgressBar("VContainer Setup", $"Downloading VContainer...", 0);
                 await GithubReleaseDownload.Download("hadashiA", "VContainer", "VContainer.SourceGenerator.dll", DIPath);
@@ -41,14 +41,17 @@ namespace Cosmos.DI
             AssetDatabase.SetLabels(assetObject, labels);
             EditorUtility.SetDirty(assetObject);
 
-            if (!Directory.Exists(DIPath + "Runtime")) Directory.CreateDirectory(DIPath + "Runtime");
-            if (!Directory.Exists(DIPath + "Editor")) Directory.CreateDirectory(DIPath + "Editor");
+            if (!Directory.Exists($"{DIPath}Runtime")) Directory.CreateDirectory($"{DIPath}Runtime");
+            if (!Directory.Exists($"{DIPath}Editor"))  Directory.CreateDirectory($"{DIPath}Editor");
+            if (!Directory.Exists(GameplayModelPath))  Directory.CreateDirectory(GameplayModelPath);
             // 写入RootLifetimeScope.cs
-            File.WriteAllText($"{Application.dataPath}/DI/Runtime/RootScope.cs", Script_Template.RootLifetimeScope_cs);
+            File.WriteAllText($"{DIPath}Runtime/RootScope.cs", Script_Template.RootScope_cs);
+            // 写入GlobalSignalScope.cs
+            File.WriteAllText($"{DIPath}Runtime/GlobalSignalScope.cs", Script_Template.GlobalSignalScope_cs);
             // 写入GameRoot.cs
-            File.WriteAllText($"{Application.dataPath}/DI/Runtime/GameRoot.cs", Script_Template.GameRoot_cs);
+            File.WriteAllText($"{GameplayModelPath}GameplayModel.cs", Script_Template.GameplayModel_cs);
             // 写入AutoInjectHelperEditor.cs
-            File.WriteAllText($"{Application.dataPath}/DI/Editor/AutoInjectHelperEditor.cs", Script_Template.AutoInjectHelperEditor_cs);
+            File.WriteAllText($"{DIPath}Editor/AutoInjectHelperEditor.cs", Script_Template.AutoInjectHelperEditor_cs);
 
             AssetDatabase.Refresh();
             EditorUtility.ClearProgressBar();
