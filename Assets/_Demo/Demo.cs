@@ -14,21 +14,27 @@ using Cosmos.Math;
 using VContainer;
 using VContainer.Unity;
 using MessagePipe;
+using System.Net.NetworkInformation;
 
 public class Demo : MonoBehaviour
 {
-    [Inject] public TestSignal testSignal  { get; set; }
+    [Inject] public TestSignal testSignal { get; set; }
     [Inject] public ITestModel testModel { get; set; }
     [Inject] public ITestModel2 testModel2 { get; set; }
-    private Button _button;
+    public Button button1;
+    public Button button2;
+    public float rate;
+    public int center;
+    public int max;
 
     public void Start()
     {
-        _button = GetComponent<Button>();
-        _button.onClick.RemoveAllListeners();
-        _button.onClick.AddListener(OnClick);
+        button1.onClick.RemoveAllListeners();
+        button1.onClick.AddListener(OnClick1);
+        button2.onClick.RemoveAllListeners();
+        button2.onClick.AddListener(OnClick2);
     }
-    private void OnClick()
+    private void OnClick1()
     {
         // string[] arr = { "赵", "钱", "孙", "李", "周", "吴", "铮", "王" };
         // Array.Sort(arr, CostumComparer.ChineseComparer);
@@ -39,9 +45,56 @@ public class Demo : MonoBehaviour
         // Debug.Log(PinyinConverter.ToFormatPinyin(pinyin));
         // var a = "abcdefg";
         // var b = "abcdefghijk";
-        testSignal.Dispatch(1);
-        Debug.LogError(testModel != null);
-        Debug.LogError(testModel2 != null);
+        // testSignal.Dispatch(1);
+        // Debug.LogError(testModel != null);
+        // Debug.LogError(testModel2 != null);
+        var pRD = new PRDCalculator(rate);
+        var success = 0;
+        var failture = 0;
+        var must = 0;
+        var hintTime = 0;
+        var lastHintIndex = 0;
+        for (var i = 0; i < max; i++)
+        {
+            if (pRD.CurrentRate >= 1) must += 1;
+            if (pRD.Roll())
+            {
+                success += 1;
+                hintTime += i - lastHintIndex;
+                lastHintIndex = i;
+            }
+            else
+            {
+                failture += 1;
+            }
+        }
+
+        Debug.LogError($"整体成功概率：{(float)success / (success + failture)}  有{must}次为必成功  平均成功间隔：{(hintTime + (max - lastHintIndex)) / (float)success}");
+    }
+    private void OnClick2()
+    {
+        var pRD = new PRDCalculatorNonLinear(rate, center);
+        var success = 0;
+        var failture = 0;
+        var must = 0;
+        var hintTime = 0;
+        var lastHintIndex = 0;
+        for (var i = 0; i < max; i++)
+        {
+            if (pRD.CurrentRate >= 1) must += 1;
+            if (pRD.Roll())
+            {
+                success += 1;
+                hintTime += i - lastHintIndex;
+                lastHintIndex = i;
+            }
+            else
+            {
+                failture += 1;
+            }
+        }
+
+        Debug.LogError($"整体成功概率：{(float)success / (success + failture)}  有{must}次为必成功  平均成功间隔：{(hintTime + (max - lastHintIndex)) / (float)success}");
     }
     private void TestRandom()
     {
