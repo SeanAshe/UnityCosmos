@@ -48,7 +48,7 @@ public class Demo : MonoBehaviour
         // testSignal.Dispatch(1);
         // Debug.LogError(testModel != null);
         // Debug.LogError(testModel2 != null);
-        var pRD = new PRDCalculator(rate);
+        var pRD = new PRDPlusCalculator(rate, 80, 40);
         var success = 0;
         var failture = 0;
         var must = 0;
@@ -68,8 +68,11 @@ public class Demo : MonoBehaviour
                 failture += 1;
             }
         }
-
+        Debug.LogError(pRD.baseProb);
         Debug.LogError($"整体成功概率：{(float)success / (success + failture)}  有{must}次为必成功  平均成功间隔：{(hintTime + (max - lastHintIndex)) / (float)success}");
+        // var por = PRDPlusCalculator.GenerateProbabilityTable(80, 0.006, 50);
+        // var rate = PRDPlusCalculator.CalculateOverallAndVerify(por);
+        // Debug.LogError(rate);
     }
     private void OnClick2()
     {
