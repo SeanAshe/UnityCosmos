@@ -1,7 +1,9 @@
 ﻿<Solution>
   <Project Path="Assembly-CSharp.csproj" />
-  <Project Path="Cosmos.OperatorSystem.csproj" />
-  <Project Path="Cosmos.csproj" />
   <Project Path="Cosmos.DI.csproj" />
+  <Project Path="TGSHDRPHelper.csproj" />
+  <Project Path="Cosmos.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
+  <Project Path="TGSURPHelper.csproj" />
+  <Project Path="Cosmos.OperatorSystem.csproj" />
 </Solution>
