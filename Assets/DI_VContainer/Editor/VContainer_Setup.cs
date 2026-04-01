@@ -41,8 +41,8 @@ namespace Cosmos.DI
             AssetDatabase.SetLabels(assetObject, labels);
             EditorUtility.SetDirty(assetObject);
 
-            if (!Directory.Exists($"{DIPath}Runtime")) Directory.CreateDirectory($"{DIPath}Runtime/Scope");
-            if (!Directory.Exists($"{DIPath}Runtime")) Directory.CreateDirectory($"{DIPath}Runtime/UIView");
+            if (!Directory.Exists($"{DIPath}Runtime/Scope")) Directory.CreateDirectory($"{DIPath}Runtime/Scope");
+            if (!Directory.Exists($"{DIPath}Runtime/UIView")) Directory.CreateDirectory($"{DIPath}Runtime/UIView");
             if (!Directory.Exists($"{DIPath}Editor"))  Directory.CreateDirectory($"{DIPath}Editor");
             if (!Directory.Exists(GameplayModelPath))  Directory.CreateDirectory(GameplayModelPath);
             // 写入RootLifetimeScope.cs
