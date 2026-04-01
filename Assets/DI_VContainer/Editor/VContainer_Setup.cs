@@ -41,15 +41,18 @@ namespace Cosmos.DI
             AssetDatabase.SetLabels(assetObject, labels);
             EditorUtility.SetDirty(assetObject);
 
-            if (!Directory.Exists($"{DIPath}Runtime")) Directory.CreateDirectory($"{DIPath}Runtime");
+            if (!Directory.Exists($"{DIPath}Runtime")) Directory.CreateDirectory($"{DIPath}Runtime/Scope");
+            if (!Directory.Exists($"{DIPath}Runtime")) Directory.CreateDirectory($"{DIPath}Runtime/UIView");
             if (!Directory.Exists($"{DIPath}Editor"))  Directory.CreateDirectory($"{DIPath}Editor");
             if (!Directory.Exists(GameplayModelPath))  Directory.CreateDirectory(GameplayModelPath);
             // 写入RootLifetimeScope.cs
-            File.WriteAllText($"{DIPath}Runtime/RootScope.cs", Script_Template.RootScope_cs);
+            File.WriteAllText($"{DIPath}Runtime/Scope/RootScope.cs", Script_Template.RootScope_cs);
             // 写入GlobalSignalScope.cs
-            File.WriteAllText($"{DIPath}Runtime/GlobalSignalScope.cs", Script_Template.GlobalSignalScope_cs);
+            File.WriteAllText($"{DIPath}Runtime/Scope/GlobalSignalScope.cs", Script_Template.GlobalSignalScope_cs);
             // 写入GlobalEntryScope.cs
-            File.WriteAllText($"{DIPath}Runtime/GlobalEntryScope.cs", Script_Template.GlobalEntryScope_cs);
+            File.WriteAllText($"{DIPath}Runtime/Scope/GlobalEntryScope.cs", Script_Template.GlobalEntryScope_cs);
+            // 写入BaseUIView.cs
+            File.WriteAllText($"{DIPath}Runtime/UIView/BaseUIView.cs", Script_Template.BaseUIView_cs);
             // 写入GameRoot.cs
             File.WriteAllText($"{GameplayModelPath}GameplayModel.cs", Script_Template.GameplayModel_cs);
             // 写入AutoInjectHelperEditor.cs

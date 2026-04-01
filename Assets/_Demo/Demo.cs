@@ -18,7 +18,7 @@ using System.Net.NetworkInformation;
 
 public class Demo : MonoBehaviour
 {
-    [Inject] public ITest3 dITest;
+    [Inject] public DITest dITest;
     public Button button1;
     public Button button2;
     public float rate;
@@ -70,7 +70,7 @@ public class Demo : MonoBehaviour
         // var rate = PRDPlusCalculator.CalculateOverallAndVerify(por);
         // Debug.LogError(rate);
 
-        dITest.Test3();
+        dITest.Test2();
     }
     private void OnClick2()
     {
