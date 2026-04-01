@@ -1680,8 +1680,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2076236380}
   - component: {fileID: 2076236381}
+  - component: {fileID: 2076236382}
   m_Layer: 0
-  m_Name: GlobalSignalScope
+  m_Name: GlobalScope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1717,8 +1718,24 @@ MonoBehaviour:
   parentReference:
     TypeName: Cosmos.DI.RootLifetimeScope
   autoRun: 1
+  autoInjectGameObjects: []
+--- !u!114 &2076236382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076236379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41fd63e16a07aec47a19e4f15244204f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Cosmos.DI.GlobalEntryScope
+  parentReference:
+    TypeName: Cosmos.DI.GlobalSignalScope
+  autoRun: 1
   autoInjectGameObjects:
-  - {fileID: 1217263873}
+  - {fileID: 478289816}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

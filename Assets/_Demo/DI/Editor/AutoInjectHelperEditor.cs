@@ -16,8 +16,9 @@ namespace Cosmos.DI
             gamerootObject.AddComponent<GameplayModel>();
             gamerootObject.transform.SetSiblingIndex(1);
 
-            var globalSignal = GameObject.Find("GlobalSignalScope") ?? new GameObject("GlobalSignalScope");
+            var globalSignal = GameObject.Find("GlobalScope") ?? new GameObject("GlobalScope");
             globalSignal.AddComponent<GlobalSignalScope>();
+            globalSignal.AddComponent<GlobalEntryScope>();
             globalSignal.transform.SetSiblingIndex(2);
 
             var scope = scopeObject.AddComponent<RootLifetimeScope>();
@@ -109,7 +110,7 @@ public class {0} : I{0}
                 // Register
                 var register = File.ReadAllText(GlobalSignalScopeFile);
                 register = register.Insert(register.IndexOf("// @Dont delete - for Register Global Signal"),
-                    $"builder.Register<{signalClassName}Signal>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();\r\n            builder.Register<{signalClassName}Command>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();\r\n            ");
+                    $"builder.Register<{signalClassName}Signal>(Lifetime.Singleton).AsSelf();\r\n            builder.Register<{signalClassName}Command>(Lifetime.Singleton).AsSelf();\r\n            ");
                 register = register.Insert(register.IndexOf("// @Dont delete - for Bind Global Signal"),
                     $"container.Resolve<{signalClassName}Signal>().Bind(container.Resolve<{signalClassName}Command>());\r\n                ");
 

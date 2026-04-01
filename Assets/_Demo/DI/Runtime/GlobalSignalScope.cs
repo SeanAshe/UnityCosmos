@@ -11,8 +11,8 @@ namespace Cosmos.DI
             builder.RegisterMessagePipe();
 
             // Global Signal
-            builder.Register<TestSignal>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-            builder.Register<TestCommand>(Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+            builder.Register<TestSignal>(Lifetime.Singleton).AsSelf();
+            builder.Register<TestCommand>(Lifetime.Singleton).AsSelf();
             // @Dont delete - for Register Global Signal
 
             builder.RegisterBuildCallback(container =>

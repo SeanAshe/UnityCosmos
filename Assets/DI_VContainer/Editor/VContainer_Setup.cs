@@ -48,6 +48,8 @@ namespace Cosmos.DI
             File.WriteAllText($"{DIPath}Runtime/RootScope.cs", Script_Template.RootScope_cs);
             // 写入GlobalSignalScope.cs
             File.WriteAllText($"{DIPath}Runtime/GlobalSignalScope.cs", Script_Template.GlobalSignalScope_cs);
+            // 写入GlobalEntryScope.cs
+            File.WriteAllText($"{DIPath}Runtime/GlobalEntryScope.cs", Script_Template.GlobalEntryScope_cs);
             // 写入GameRoot.cs
             File.WriteAllText($"{GameplayModelPath}GameplayModel.cs", Script_Template.GameplayModel_cs);
             // 写入AutoInjectHelperEditor.cs

@@ -18,9 +18,7 @@ using System.Net.NetworkInformation;
 
 public class Demo : MonoBehaviour
 {
-    [Inject] public TestSignal testSignal { get; set; }
-    [Inject] public ITestModel testModel { get; set; }
-    [Inject] public ITestModel2 testModel2 { get; set; }
+    [Inject] public ITest3 dITest;
     public Button button1;
     public Button button2;
     public float rate;
@@ -45,34 +43,34 @@ public class Demo : MonoBehaviour
         // Debug.Log(PinyinConverter.ToFormatPinyin(pinyin));
         // var a = "abcdefg";
         // var b = "abcdefghijk";
-        // testSignal.Dispatch(1);
-        // Debug.LogError(testModel != null);
-        // Debug.LogError(testModel2 != null);
-        var pRD = new PRDPlusCalculator(rate, 80, 40);
-        var success = 0;
-        var failture = 0;
-        var must = 0;
-        var hintTime = 0;
-        var lastHintIndex = 0;
-        for (var i = 0; i < max; i++)
-        {
-            if (pRD.CurrentRate >= 1) must += 1;
-            if (pRD.Roll())
-            {
-                success += 1;
-                hintTime += i - lastHintIndex;
-                lastHintIndex = i;
-            }
-            else
-            {
-                failture += 1;
-            }
-        }
-        Debug.LogError(pRD.baseProb);
-        Debug.LogError($"整体成功概率：{(float)success / (success + failture)}  有{must}次为必成功  平均成功间隔：{(hintTime + (max - lastHintIndex)) / (float)success}");
+
+        // var pRD = new PRDPlusCalculator(rate, 80, 40);
+        // var success = 0;
+        // var failture = 0;
+        // var must = 0;
+        // var hintTime = 0;
+        // var lastHintIndex = 0;
+        // for (var i = 0; i < max; i++)
+        // {
+        //     if (pRD.CurrentRate >= 1) must += 1;
+        //     if (pRD.Roll())
+        //     {
+        //         success += 1;
+        //         hintTime += i - lastHintIndex;
+        //         lastHintIndex = i;
+        //     }
+        //     else
+        //     {
+        //         failture += 1;
+        //     }
+        // }
+        // Debug.LogError(pRD.baseProb);
+        // Debug.LogError($"整体成功概率：{(float)success / (success + failture)}  有{must}次为必成功  平均成功间隔：{(hintTime + (max - lastHintIndex)) / (float)success}");
         // var por = PRDPlusCalculator.GenerateProbabilityTable(80, 0.006, 50);
         // var rate = PRDPlusCalculator.CalculateOverallAndVerify(por);
         // Debug.LogError(rate);
+
+        dITest.Test3();
     }
     private void OnClick2()
     {
